@@ -1,0 +1,33 @@
+[Unit]
+Description=Local Security Dashboard
+After=network.target security-dashboard-helper.service security-dashboard-restore.service
+Requires=security-dashboard-helper.service security-dashboard-restore.service
+
+[Service]
+Type=simple
+User=eagles
+Group=eagles
+SupplementaryGroups=adm
+WorkingDirectory=/home/eagles/dockerz/security-dashboard
+Environment=NODE_ENV=production
+Environment=PORT=4311
+Environment=DATA_DIR=/var/lib/security-dashboard/app
+Environment=NGINX_LOG_DIR=/var/log/nginx
+Environment=GEOIP_COUNTRY_DB=/usr/share/GeoIP/GeoLite2-Country.mmdb
+Environment=SECURITY_HELPER_SOCKET=/run/security-dashboard/dashboard.sock
+ExecStart=/home/eagles/.nvm/versions/node/v22.22.1/bin/node server/index.mjs
+Restart=on-failure
+RestartSec=3
+UMask=0027
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=read-only
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+RestrictAddressFamilies=AF_UNIX AF_INET AF_INET6
+ReadWritePaths=/var/lib/security-dashboard/app
+
+[Install]
+WantedBy=multi-user.target

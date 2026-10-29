@@ -1,0 +1,28 @@
+[Unit]
+Description=Privileged local Security Dashboard helper
+After=network.target crowdsec.service fail2ban.service
+
+[Service]
+Type=simple
+User=root
+Group=eagles
+RuntimeDirectory=security-dashboard
+RuntimeDirectoryMode=0750
+UMask=0007
+Environment=DASHBOARD_HELPER_SOCKET=/run/security-dashboard/dashboard.sock
+ExecStart=/usr/local/sbin/security-dashboard-helper serve
+Restart=on-failure
+RestartSec=2
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+CapabilityBoundingSet=CAP_NET_ADMIN
+AmbientCapabilities=CAP_NET_ADMIN
+ReadWritePaths=/var/lib/security-dashboard /var/log/security-dashboard /run/security-dashboard /run/lock
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,30 @@
+{
+  "name": "eagles-security-dashboard",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/eagles-edu/security-dashboard.git"
+  },
+  "author": "Eagles Security",
+  "license": "MIT",
+  "description": "Eagles Security Dashboard",
+  "keywords": ["security", "dashboard", "eagles"],
+  "scripts": {
+    "dev": "vite --host 127.0.0.1",
+    "build": "vite build",
+    "start": "node server/index.mjs",
+    "test": "node --test && npm run test:helper",
+    "test:helper": "python3 -m unittest discover -s test -p '*_test.py'"
+  },
+  "dependencies": {
+    "better-sqlite3": "^12.2.0",
+    "react": "^19.1.1",
+    "react-dom": "^19.1.1"
+  },
+  "devDependencies": {
+    "@vitejs/plugin-react": "^5.0.2",
+    "vite": "^7.1.7"
+  }
+}

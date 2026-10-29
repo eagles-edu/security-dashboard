@@ -1,0 +1,17 @@
+[Unit]
+Description=Collect host security detections and persist active bans
+After=security-dashboard-restore.service crowdsec.service fail2ban.service
+Requires=security-dashboard-restore.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/security-dashboard-helper sync
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+CapabilityBoundingSet=CAP_NET_ADMIN
+AmbientCapabilities=CAP_NET_ADMIN

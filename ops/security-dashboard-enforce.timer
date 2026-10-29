@@ -1,0 +1,11 @@
+[Unit]
+Description=Collect host security detections every 30 seconds
+
+[Timer]
+OnBootSec=10s
+OnUnitActiveSec=30s
+AccuracySec=1s
+Unit=security-dashboard-enforce.service
+
+[Install]
+WantedBy=timers.target

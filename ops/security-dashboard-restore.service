@@ -1,0 +1,21 @@
+[Unit]
+Description=Restore persistent Security Dashboard firewall blocks
+After=network-pre.target netfilter-persistent.service crowdsec.service
+Before=security-dashboard.service
+
+[Service]
+Type=oneshot
+ExecStart=/usr/local/sbin/security-dashboard-helper restore
+RemainAfterExit=yes
+NoNewPrivileges=true
+PrivateTmp=true
+ProtectSystem=full
+ProtectHome=true
+ProtectKernelTunables=true
+ProtectKernelModules=true
+ProtectControlGroups=true
+CapabilityBoundingSet=CAP_NET_ADMIN
+AmbientCapabilities=CAP_NET_ADMIN
+
+[Install]
+WantedBy=multi-user.target
